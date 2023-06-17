@@ -2,8 +2,10 @@ const express = require("express");
 const router = express.Router();
 
 const ctrlWrapper = require("../../decorators/ctrlWrapper");
-const { getAll } = require("../../controllers/friends");
+// const authenticate = require("../../middleware/authenticate");
 
-router.get("/", ctrlWrapper(getAll));
+const { get } = require("../../controllers/lingvo");
+
+router.get("/", ctrlWrapper(get));
 
 module.exports = router;

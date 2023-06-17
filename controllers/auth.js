@@ -1,18 +1,7 @@
-const {
-	createUser,
-	loginUser,
-	logoutUser,
-} = require("../models/user/operations.js");
+const {	getToken } = require("../models/user/operations.js");
 
-const registr = async ({ body }) => await createUser(body);
-
-const login = async ({ body: { email, password } }) =>
-	await loginUser(email, password);
-
-const logout = async ({ user: { _id } }) => await logoutUser(_id);
+const login = async ({ body: { email, password } }) =>	await getToken(email, password);
 
 module.exports = {
-	registr,
 	login,
-	logout,
 };
