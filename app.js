@@ -3,7 +3,6 @@ const logger = require("morgan");
 const cors = require("cors");
 require("dotenv").config();
 
-const authRouter = require("./routes/api/auth");
 const lingvoRouter = require("./routes/api/lingvo");
 
 const app = express();
@@ -15,7 +14,6 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static("public"));
 
-app.use("/api/v1.1/authenticate'", authRouter);
 app.use("/api/v1/WordList", lingvoRouter);
 
 app.use((_, res, __) => {
