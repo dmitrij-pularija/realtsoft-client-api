@@ -4,7 +4,8 @@ const ctrlWrapper = (ctrl) => {
       const result = await ctrl(req, res, next);
       return res.status(200).json(result);
     } catch (error) {
-      if (error.response.status === 404) {
+      // error.response.data.Message && console.log(error.response.data.Message);
+      if (error.response.status === 404 || error.response.status === 500) {
         return res.status(200).json([]);
       } else {
         next(error);
