@@ -3,7 +3,8 @@ const logger = require("morgan");
 const cors = require("cors");
 require("dotenv").config();
 
-const lingvoRouter = require("./routes/api/lingvo");
+const clientRouter = require("./routes/api/client");
+const inquiryRouter = require("./routes/api/inquiry");
 
 const app = express();
 
@@ -14,7 +15,8 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static("public"));
 
-app.use("/api/v1/WordList", lingvoRouter);
+app.use("/api/client/create", clientRouter);
+app.use("/api/inquiry/create", inquiryRouter);
 
 app.use((_, res, __) => {
   res.status(404).json({ message: "Not found" });

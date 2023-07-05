@@ -2,8 +2,8 @@ const express = require("express");
 const router = express.Router();
 
 const ctrlWrapper = require("../../decorators/ctrlWrapper");
-const { get } = require("../../controllers/lingvo");
+const { add } = require("../../controllers/inquiry");
 
-router.get("/", ctrlWrapper(get));
+router.post("/", ctrlWrapper(add));
 
 module.exports = router;
