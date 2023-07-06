@@ -4,8 +4,8 @@ const ctrlWrapper = (ctrl) => {
       const result = await ctrl(req, res, next);
       return res.status(200).json(result);
     } catch (error) {
-      // console.log(error);   
-        next(error);
+      // console.log(error);
+      next(error);
     }
   };
   return func;

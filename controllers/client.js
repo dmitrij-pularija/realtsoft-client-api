@@ -1,5 +1,7 @@
-const { addClient } = require("../models/client/operations");
+const { addClient, getClient } = require("../models/client/operations");
 
-const add = async ({ body: { phones, name, email, userId }}) => await addClient(phones, name, email, userId);
+const add = async ({ body: { phones, name, email, userId } }) =>
+  await addClient(phones, name, email, userId);
+const get = async ({ body: { phone, email } }) => await getClient(phone, email);
 
-module.exports = { add };
+module.exports = { add, get };

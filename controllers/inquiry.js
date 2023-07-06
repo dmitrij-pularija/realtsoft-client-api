@@ -1,5 +1,26 @@
-const { getWordList } = require("../models/inquiry/operations");
+const { addInquiry } = require("../models/inquiry/operations");
 
-const add = async ({ query: { prefix, srcLang, pageSize }}) => await getWordList(prefix, srcLang, pageSize);
+const add = async ({
+  body: {
+    userId,
+    deal,
+    realtyType,
+    category,
+    name,
+    priceKind,
+    clientId,
+    sourceKind 
+  },
+}) =>
+  await addInquiry(
+    userId,
+    deal,
+    realtyType,
+    category,
+    name,
+    priceKind,
+    clientId,
+    sourceKind
+  );
 
 module.exports = { add };

@@ -15,7 +15,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static("public"));
 
-app.use("/api/client/create", clientRouter);
+app.use("/api/client", clientRouter);
 app.use("/api/inquiry/create", inquiryRouter);
 
 app.use((_, res, __) => {

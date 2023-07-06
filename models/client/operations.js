@@ -52,4 +52,18 @@ const addClient = async ( phones, name, email, userId ) => {
   return data;
 };
 
-module.exports = { addClient };
+const getClient = async (phone, email) => {
+  // const params = {phones: [phones], name, email, responsible_user_id: userId};
+  // const formData = querystring.stringify({"phones[]": phones, name, email, responsible_user_id: userId});
+  // const headers = {
+  //   'Content-Type': 'application/x-www-form-urlencoded',
+  //   'auth': API_KEY + ':' + generateSign('client/create', params, API_SECRET)
+  // };
+  // // console.log("auth:", API_KEY + ":" + generateSign("client/create", params, API_SECRET));
+  // // const { model } = await axios.post("/api/client/create", formData, headers );
+  // const { data } = await axios.post('/api/client/create', formData, { headers });
+  // return data;
+};
+
+
+module.exports = { addClient, getClient };

@@ -1,41 +1,44 @@
 const axios = require("axios");
-const { BASE_URL, API_KEY } = process.env;
+const querystring = require("querystring");
+const { generateSign } = require("../../utils/signature");
 
-let tokenExpirationTime = null;
-axios.defaults.baseURL = BASE_URL;
+const { API_KEY, API_SECRET } = process.env;
 
-const setHeader = async () => {
-  if (Date.now() > tokenExpirationTime) {
-    const { data } = await axios.post(
-      "/api/v1.1/authenticate",
-      {},
-      {
-        headers: {
-          Authorization: `Basic ${API_KEY}`,
-        },
-      }
-    );
-    tokenExpirationTime = Date.now() + 23 * 60 * 60 * 1000;
-    axios.defaults.headers.common.Authorization = `Bearer ${data}`;
-  }
-};
+const addInquiry = async (
+  userId,
+  deal,
+  realtyType,
+  category,
+  name,
+  priceKind,
+  clientId,
+  sourceKind
+) => {
+  const params = {
+    responsible_user_id: userId,
+    deal,
+    realty_type: realtyType,
+    category,
+    name,
+    price_kind: priceKind,
+    client_id: clientId,
+    source_kind: sourceKind,
+  };
+  const formData = querystring.stringify(params);
+  const headers = {
+    "Content-Type": "application/x-www-form-urlencoded",
+    auth: API_KEY + ":" + generateSign("inquiry/create", params, API_SECRET),
+  };
+  console.log(
+    "auth:",
+    API_KEY + ":" + generateSign("inquiry/create", params, API_SECRET)
+  );
 
-const getWordList = async (prefix, srcLang, pageSize) => {
-  await setHeader();
-
-  const {
-    data: { Headings },
-  } = await axios.get("/api/v1/WordList", {
-    params: {
-      prefix,
-      srcLang,
-      dstLang: srcLang,
-      pageSize,
-    },
+  const { data } = await axios.post("/api/inquiry/create", formData, {
+    headers,
   });
 
-  const data = Headings.map(({ Heading }) => ({ Heading }));
   return data;
 };
 
-module.exports = { getWordList };
+module.exports = { addInquiry };
